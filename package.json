@@ -16,8 +16,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --fix",
-    "test": "vitest --run",
+    "lint": "eslint src/**/* --ext .tsx,.ts --fix",
+    "test": "vitest --run --passWithNoTests=false",
     "test:watch": "vitest",
     "test:watch:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",

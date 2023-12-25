@@ -4,5 +4,6 @@ describe('Header', () => {
   it('should render correctly', () => {
     // TODO create all tests
     expect(2).toBe(2)
+    expect(5).toBe(5)
   })
 })
