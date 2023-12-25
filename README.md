@@ -24,3 +24,25 @@ This project has the intuition to create a Dashboard for food logists, the logis
 | recharts             | 2.10.3  |
 | react-hook-form      | 7.49.2  |
 | react-router-dom     | 6.21.1  |
+| shadcn/ui            | 0.5.0   |
+| pnpm                 | 8+      |
+| node                 | 18+     |
+
+
+##### How clone and run this project
+
+```bash
+# clone
+git clone https://github.com/mauriciogirardi/pizza-shop.git
+
+# open folder
+cd pizza-shop
+
+# install dependencies
+pnpm install
+
+# run
+pnpm dev
+```
+----
+[LICENSE](/LICENSE)
