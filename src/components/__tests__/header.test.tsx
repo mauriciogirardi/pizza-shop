@@ -1,8 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest'
 
-describe("Header", () => {
-  it("should render correctly", () => {
+describe('Header', () => {
+  it('should render correctly', () => {
     // TODO create all tests
-    expect(2).toBe(2);
-  });
-});
+    expect(2).toBe(2)
+  })
+})
