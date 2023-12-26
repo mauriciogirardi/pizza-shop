@@ -1,3 +1,5 @@
+[![ci](https://github.com/mauriciogirardi/pizza-shop/actions/workflows/ci.yml/badge.svg)](https://github.com/mauriciogirardi/pizza-shop/actions/workflows/ci.yml)
+
 <div align="center">
   <img src=".github/imgs/logo.svg" width="400px"/>
 </div>
@@ -31,6 +33,7 @@ This project has the intuition to create a Dashboard for food logists, the logis
 | shadcn/ui            | 0.5.0   |
 | pnpm                 | 8+      |
 | node                 | 18+     |
+
 
 
 ##### How clone and run this project
