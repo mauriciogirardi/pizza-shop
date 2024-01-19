@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
+import { Skeleton } from '../ui/skeleton'
+
 type Theme = 'dark' | 'light' | 'system'
 
 type ThemeProviderProps = {
@@ -26,6 +28,7 @@ export function ThemeProvider({
   storageKey = 'vite-ui-theme',
   ...props
 }: ThemeProviderProps) {
+  const [isLoading, setIsLoading] = useState(true)
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   )
@@ -46,7 +49,11 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme)
-  }, [theme])
+  }, [theme, isLoading])
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   const value = {
     theme,
@@ -58,7 +65,7 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
+      {isLoading ? <Skeleton className="h-10 w-10" /> : children}
     </ThemeProviderContext.Provider>
   )
 }
