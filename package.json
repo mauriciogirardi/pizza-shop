@@ -16,8 +16,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src/**/* --ext .tsx,.ts --fix",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest --run --passWithNoTests=true",
+    "dev:test": "vite --port 50789 --mode test",
     "test:watch": "vitest",
     "test:watch:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
@@ -32,8 +33,11 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tanstack/react-query": "^5.17.15",
+    "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "date-fns": "^3.2.0",
     "install": "^0.13.0",
     "localforage": "^1.10.0",
     "lucide-react": "^0.300.0",
@@ -72,5 +76,10 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vitest": "^1.1.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
