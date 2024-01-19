@@ -1,0 +1,7 @@
+export const ROUTE_AUTH = '/authenticate'
+export const ROUTE_RESTAURANTS = '/restaurants'
+export const ROUTE_MANAGED_RESTAURANT = '/managed-restaurant'
+export const ROUTER_ME = '/me'
+export const ROUTER_PROFILE = '/profile'
+export const ROUTER_SIGN_OUT = '/sign-out'
+export const ROUTER_ORDERS = '/orders'
