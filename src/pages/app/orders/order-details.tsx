@@ -1,13 +1,14 @@
-import { Search } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
-import { Button } from '@/components/ui/button'
+import { getOrderDetails } from '@/api/get-order-details'
+import { OrderStatus } from '@/components/order-status'
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Table,
@@ -18,68 +19,67 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { KEY_ORDER } from '@/constants/queries-key'
+import { formattedCurrency } from '@/utils/formatted-currency'
 
-// type OrderDetailsProps = {}
+type OrderDetailsProps = {
+  orderId: string
+  open: boolean
+}
 
-export function OrderDetails() {
+export function OrderDetails({ orderId, open }: OrderDetailsProps) {
+  const { data: order } = useQuery({
+    queryKey: [KEY_ORDER, orderId],
+    queryFn: () => getOrderDetails({ orderId }),
+    enabled: open,
+  })
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="xs">
-          <Search className="h-3 w-3" />
-          <span className="sr-only">Detalhes do pedido</span>
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Pedido: 64414efe54wd4e5f45r4f5ew4</DialogTitle>
-          <DialogDescription>Detalhes do pedido</DialogDescription>
-        </DialogHeader>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Pedido: {orderId}</DialogTitle>
+        <DialogDescription>Detalhes do pedido</DialogDescription>
+      </DialogHeader>
 
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
               <TableRow>
                 <TableCell className="text-muted-foreground">Status</TableCell>
                 <TableCell className="flex justify-end">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-slate-400" />
-                    <span className="font-medium text-muted-foreground">
-                      Pendente
-                    </span>
-                  </div>
+                  <OrderStatus status={order.status} />
                 </TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell className="text-muted-foreground">Cliente</TableCell>
                 <TableCell className="flex justify-end">
-                  Mauricio Girardi
+                  {order.customer.name}
                 </TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell className="text-muted-foreground">
                   Telefone
                 </TableCell>
                 <TableCell className="flex justify-end">
-                  (47) 99999-5698
+                  {order.customer.phone ?? 'Não informado'}
                 </TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell className="text-muted-foreground">E-mail</TableCell>
                 <TableCell className="flex justify-end">
-                  maurigirarde@yahoo.com.br
+                  {order.customer.email}
                 </TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell className="text-muted-foreground">
                   Realizado há
                 </TableCell>
                 <TableCell className="flex justify-end">
-                  Há 15 minutos
+                  {formatDistanceToNow(order.createdAt, {
+                    locale: ptBR,
+                    addSuffix: true,
+                  })}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -95,32 +95,38 @@ export function OrderDetails() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell>Pizza Pepperoni Família</TableCell>
-                <TableCell className="text-right">3</TableCell>
-                <TableCell className="text-right">R$60,00</TableCell>
-                <TableCell className="text-right">R$180,00</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Pizza 2 Amores Família</TableCell>
-                <TableCell className="text-right">1</TableCell>
-                <TableCell className="text-right">R$60,00</TableCell>
-                <TableCell className="text-right">R$60,00</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Coca Cola 2L</TableCell>
-                <TableCell className="text-right">2</TableCell>
-                <TableCell className="text-right">R$8,00</TableCell>
-                <TableCell className="text-right">R$16,00</TableCell>
-              </TableRow>
+              {order.orderItems.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.product.name}</TableCell>
+                  <TableCell className="text-right">{item.quantity}</TableCell>
+                  <TableCell className="text-right">
+                    {formattedCurrency(item.priceInCents / 100)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {((item.priceInCents * item.quantity) / 100).toLocaleString(
+                      'pt-BR',
+                      {
+                        style: 'currency',
+                        currency: 'BRL',
+                      },
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
             <TableFooter>
-              <TableCell colSpan={3}>Total do pedido</TableCell>
-              <TableCell className="text-right font-medium">R$246,00</TableCell>
+              <TableRow>
+                <TableCell colSpan={3}>Total do pedido</TableCell>
+                <TableCell className="text-right font-medium">
+                  {formattedCurrency(order.totalInCents / 100)}
+                </TableCell>
+              </TableRow>
             </TableFooter>
           </Table>
         </div>
-      </DialogContent>
-    </Dialog>
+      ) : (
+        <p>Carregand</p>
+      )}
+    </DialogContent>
   )
 }

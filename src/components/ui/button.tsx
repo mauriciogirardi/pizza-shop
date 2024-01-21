@@ -43,6 +43,7 @@ export interface ButtonProps
   asChild?: boolean
   loading?: boolean
   disabled?: boolean
+  colorLoading?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -51,6 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant,
       size,
+      colorLoading = 'text-gray-500',
       disabled = false,
       loading = false,
       asChild = false,
@@ -70,7 +72,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           props.children
         ) : (
           <>
-            {loading && <Loader2 className="mr-2 animate-spin" />}
+            {loading && (
+              <Loader2 className={cn('mr-2 animate-spin', colorLoading)} />
+            )}
             {props.children}
           </>
         )}

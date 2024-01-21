@@ -1,12 +1,30 @@
+import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
+import { z } from 'zod'
 
+import { getOrders } from '@/api/get-orders'
 import { Pagination } from '@/components/pagination'
 import * as T from '@/components/ui/table'
+import { KEY_ORDERS } from '@/constants/queries-key'
+import { useParams } from '@/hooks/useParams'
 
 import { OrderTableFilters } from './order-table-filters'
 import { OrderTableRow } from './order-table-row'
 
 export function Orders() {
+  const { pagination, filters } = useParams()
+  const { customerName, orderId, status } = filters
+
+  const pageIndex = z.coerce
+    .number()
+    .transform((page) => page - 1)
+    .parse(pagination.page)
+
+  const { data: result } = useQuery({
+    queryKey: [KEY_ORDERS, pageIndex, orderId, status, customerName],
+    queryFn: () => getOrders({ pageIndex, customerName, orderId, status }),
+  })
+
   return (
     <>
       <Helmet title="Pedidos" />
@@ -29,20 +47,28 @@ export function Orders() {
                   <T.TableHead className="w-[140px]">
                     Total do pedido
                   </T.TableHead>
-                  <T.TableHead className="w-[164px]"></T.TableHead>
-                  <T.TableHead className="w-[132px]"></T.TableHead>
+                  <T.TableHead className="w-[124px]"></T.TableHead>
+                  <T.TableHead className="w-[122px]"></T.TableHead>
                 </T.TableRow>
               </T.TableHeader>
 
               <T.TableBody>
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <OrderTableRow key={index} />
-                ))}
+                {result &&
+                  result.orders.map((order) => (
+                    <OrderTableRow key={order.orderId} order={order} />
+                  ))}
               </T.TableBody>
             </T.Table>
           </div>
         </div>
-        <Pagination pageIndex={0} perPage={10} totalCount={105} />
+        {result && (
+          <Pagination
+            pageIndex={result.meta.pageIndex}
+            perPage={result.meta.perPage}
+            totalCount={result.meta.totalCount}
+            onPageChange={pagination.onPagination}
+          />
+        )}
       </section>
     </>
   )
