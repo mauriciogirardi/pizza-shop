@@ -91,8 +91,8 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
           onClick={onClick}
         >
           {isLoading ? (
-            <div className="flex w-[80px] justify-center">
-              <Loader2 className="animate-spin text-orange-500" />
+            <div className="flex w-[70px] justify-center">
+              <Loader2 className="h-4 w-4 animate-spin text-orange-500" />
             </div>
           ) : (
             <>
@@ -194,8 +194,8 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
           onClick={() => cancelOrderFn({ orderId: order.orderId })}
         >
           {isCancelingOrder ? (
-            <div className="flex w-[80px] justify-center">
-              <Loader2 className="animate-spin text-orange-500" />
+            <div className="flex w-[70px] justify-center">
+              <Loader2 className="h-4 w-4 animate-spin text-orange-500 " />
             </div>
           ) : (
             <>

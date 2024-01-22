@@ -88,68 +88,78 @@ export function OrderTableFilters() {
     <form
       role="form"
       onSubmit={handleSubmit(handleFilter)}
-      className="flex items-center gap-2"
+      className="flex flex-col flex-wrap gap-2 lg:flex-row lg:items-center"
     >
       <Input
         placeholder="ID do pedido"
         className="h-8 w-auto"
         {...register('orderId')}
       />
-      <Input
-        placeholder="Nome do cliente"
-        className="h-8 w-[320px]"
-        {...register('customerName')}
-      />
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <Input
+          placeholder="Nome do cliente"
+          className="h-8 lg:w-[320px]"
+          {...register('customerName')}
+        />
 
-      <Controller
-        name="status"
-        control={control}
-        render={({ field: { name, onChange, value, disabled } }) => (
-          <Select
-            defaultValue="all"
-            name={name}
-            onValueChange={onChange}
-            value={value}
-            disabled={disabled}
-          >
-            <SelectTrigger className="h-8 w-[180px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {selectOptionsStatusOrder.map(({ label, statusColor, value }) => (
-                <SelectItem value={value} key={value}>
-                  <span className="flex items-center gap-3">
-                    <span className={`h-2 w-2 rounded-full ${statusColor}`} />
-                    {label}
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        )}
-      />
+        <Controller
+          name="status"
+          control={control}
+          render={({ field: { name, onChange, value, disabled } }) => (
+            <Select
+              defaultValue="all"
+              name={name}
+              onValueChange={onChange}
+              value={value}
+              disabled={disabled}
+            >
+              <SelectTrigger className="h-8 w-full lg:w-[180px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {selectOptionsStatusOrder.map(
+                  ({ label, statusColor, value }) => (
+                    <SelectItem value={value} key={value}>
+                      <span className="flex items-center gap-3">
+                        <span
+                          className={`h-2 w-2 rounded-full ${statusColor}`}
+                        />
+                        {label}
+                      </span>
+                    </SelectItem>
+                  ),
+                )}
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </div>
 
-      <Button
-        role="button"
-        aria-label="Filtrar resultados"
-        type="submit"
-        variant="secondary"
-        size="xs"
-      >
-        <Search className="mr-2 h-4 w-4" />
-        Filtrar resultados
-      </Button>
-      <Button
-        onClick={handleClearFilters}
-        role="button"
-        aria-label="Remover filtros"
-        type="button"
-        variant="outline"
-        size="xs"
-      >
-        <X className="mr-2 h-4 w-4" />
-        Remover filtros
-      </Button>
+      <div className="flex flex-col items-center gap-2 sm:flex-row">
+        <Button
+          role="button"
+          aria-label="Filtrar resultados"
+          type="submit"
+          variant="secondary"
+          size="xs"
+          className="w-full"
+        >
+          <Search className="mr-2 h-4 w-4" />
+          Filtrar resultados
+        </Button>
+        <Button
+          onClick={handleClearFilters}
+          role="button"
+          aria-label="Remover filtros"
+          type="button"
+          variant="outline"
+          size="xs"
+          className="w-full"
+        >
+          <X className="mr-2 h-4 w-4" />
+          Remover filtros
+        </Button>
+      </div>
     </form>
   )
 }

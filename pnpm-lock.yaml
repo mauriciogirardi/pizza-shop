@@ -92,6 +92,9 @@ dependencies:
   tailwindcss-animate:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.4.0)
+  vaul:
+    specifier: ^0.8.9
+    version: 0.8.9(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -5874,6 +5877,20 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
     dev: true
+
+  /vaul@0.8.9(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-gpmtmZRWDPP6niQh14JfRIFUYZVyfvAWyA/7rUINOfNlO/2K7uEvI5rLXEXkxZIRFyUZj+TPHLFMirkegPHjrw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
 
   /victory-vendor@36.7.0:
     resolution: {integrity: sha512-nqYuTkLSdTTeACyXcCLbL7rl0y6jpzLPtTNGOtSnajdR+xxMxBdjMxDjfNJNlhR+ZU8vbXz+QejntcbY7h9/ZA==}
