@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { subDays } from 'date-fns'
-import { useMemo, useState } from 'react'
+import { differenceInDays, subDays } from 'date-fns'
+import { AlertCircle } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import {
   CartesianGrid,
@@ -10,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { toast } from 'sonner'
 import colors from 'tailwindcss/colors'
 
 import { getDailyRevenueInPeriod } from '@/api/get-daily-revenue-in-period'
@@ -32,13 +34,20 @@ export function RevenueChat() {
     to: new Date(),
   })
 
-  const { data: dailyRevenueInPeriod, isFetching } = useQuery({
+  const diffInDays =
+    differenceInDays(
+      new Date(dateRange?.to || 0),
+      new Date(dateRange?.from || 0),
+    ) > 7
+
+  const { data: dailyRevenueInPeriod } = useQuery({
     queryKey: [KEY_METRICS, KEY_DAILY_REVENUE_PERIOD, dateRange],
     queryFn: () =>
       getDailyRevenueInPeriod({
         from: dateRange?.from,
         to: dateRange?.to,
       }),
+    enabled: !diffInDays,
   })
 
   const chartData = useMemo(() => {
@@ -49,6 +58,12 @@ export function RevenueChat() {
       }
     })
   }, [dailyRevenueInPeriod])
+
+  useEffect(() => {
+    if (diffInDays) {
+      toast.warning('O intervalo das datas não pode ser superior a 7 dias.')
+    }
+  }, [diffInDays])
 
   return (
     <Card className="col-span-full lg:col-span-6">
@@ -61,17 +76,18 @@ export function RevenueChat() {
         </div>
         <div className="flex flex-col gap-3 pt-5 md:flex-row md:items-center md:pt-0">
           <Label>Período</Label>
-          {isFetching ? (
-            <Skeleton className="h-9 w-[320px]" />
-          ) : (
-            <DateRangePicker date={dateRange} onDateChange={setDateRange} />
-          )}
+          <DateRangePicker date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>
 
       <CardContent>
-        {isFetching && <Skeleton className="h-[240px] w-full" />}
-        {chartData && !isFetching && (
+        {diffInDays ? (
+          <div className="flex h-[180px] flex-col items-center justify-center text-sm text-gray-400">
+            <AlertCircle className="mb-3 text-orange-400" />
+            <p>O intervalo das datas não pode ser superior a 7 dias.</p>
+            <span>escolha a data novamente!</span>
+          </div>
+        ) : chartData ? (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={chartData} style={{ fontSize: 12 }}>
               <XAxis dataKey="date" tickLine={false} axisLine={false} dy={16} />
@@ -92,6 +108,8 @@ export function RevenueChat() {
               />
             </LineChart>
           </ResponsiveContainer>
+        ) : (
+          <Skeleton className="h-[240px] w-full" />
         )}
       </CardContent>
     </Card>
