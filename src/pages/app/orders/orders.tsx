@@ -10,6 +10,7 @@ import { useParams } from '@/hooks/useParams'
 
 import { OrderTableFilters } from './order-table-filters'
 import { OrderTableRow } from './order-table-row'
+import { OrderTableSkeleton } from './order-table-skeleton'
 
 export function Orders() {
   const { pagination, filters } = useParams()
@@ -20,7 +21,7 @@ export function Orders() {
     .transform((page) => page - 1)
     .parse(pagination.page)
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     queryKey: [KEY_ORDERS, pageIndex, orderId, status, customerName],
     queryFn: () => getOrders({ pageIndex, customerName, orderId, status }),
   })
@@ -53,6 +54,7 @@ export function Orders() {
               </T.TableHeader>
 
               <T.TableBody>
+                {isLoadingOrders && <OrderTableSkeleton />}
                 {result &&
                   result.orders.map((order) => (
                     <OrderTableRow key={order.orderId} order={order} />

@@ -9,3 +9,11 @@ export const ROUTER_CANCEL_ORDER = '/orders/:orderId/cancel'
 export const ROUTER_APPROVE_ORDER = '/orders/:orderId/approve'
 export const ROUTER_DELIVER_ORDER = '/orders/:orderId/deliver'
 export const ROUTER_DISPATCH_ORDER = '/orders/:orderId/dispatch'
+export const ROUTER_METRICS_DAY_ORDERS_AMOUNT = '/metrics/day-orders-amount'
+export const ROUTER_METRICS_MONTH_REVENUE = '/metrics/month-receipt'
+export const ROUTER_METRICS_MONTH_ORDERS_AMOUNT = '/metrics/month-orders-amount'
+export const ROUTER_METRICS_MONTH_CANCELED_ORDERS_AMOUNT =
+  '/metrics/month-canceled-orders-amount'
+export const ROUTER_METRICS_POPULAR_PRODUCTS = '/metrics/popular-products'
+export const ROUTER_METRICS_DAILY_RECEIPT_IN_PERIOD =
+  '/metrics/daily-receipt-in-period'

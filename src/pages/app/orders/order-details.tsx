@@ -22,6 +22,8 @@ import {
 import { KEY_ORDER } from '@/constants/queries-key'
 import { formattedCurrency } from '@/utils/formatted-currency'
 
+import { OrderDetailsSkeleton } from './order-details-skeleton'
+
 type OrderDetailsProps = {
   orderId: string
   open: boolean
@@ -125,7 +127,7 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
           </Table>
         </div>
       ) : (
-        <p>Carregand</p>
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   )

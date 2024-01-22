@@ -8,11 +8,12 @@ import {
 } from '@/constants/paths'
 import { SignIn } from '@/pages/auth/sign-in'
 
-import { AppLayout } from './pages/__layouts/app'
-import { AuthLayout } from './pages/__layouts/auth'
+import { AppLayout } from './pages/_layouts/app'
+import { AuthLayout } from './pages/_layouts/auth'
 import { Dashboard } from './pages/app/dashboard/dashboard'
 import { Orders } from './pages/app/orders/orders'
 import { SignUp } from './pages/auth/sign-up'
+import { ErrorPage } from './pages/error'
 import { NotFound } from './pages/not-found'
 
 export const router = createBrowserRouter([
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
   },
   {
     path: PATH_ROOT,
+    errorElement: <ErrorPage />,
     element: <AppLayout />,
     children: [
       { path: PATH_ROOT, element: <Dashboard /> },
@@ -32,6 +34,7 @@ export const router = createBrowserRouter([
 
   {
     path: PATH_ROOT,
+    errorElement: <ErrorPage />,
     element: <AuthLayout />,
     children: [
       { path: PATH_SIGN_IN, element: <SignIn /> },
