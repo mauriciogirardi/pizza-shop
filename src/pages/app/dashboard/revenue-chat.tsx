@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { differenceInDays, subDays } from 'date-fns'
-import { AlertCircle } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { AlertCircle, BarChart } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import {
   CartesianGrid,
@@ -11,7 +11,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { toast } from 'sonner'
 import colors from 'tailwindcss/colors'
 
 import { getDailyRevenueInPeriod } from '@/api/get-daily-revenue-in-period'
@@ -59,11 +58,7 @@ export function RevenueChat() {
     })
   }, [dailyRevenueInPeriod])
 
-  useEffect(() => {
-    if (diffInDays) {
-      toast.warning('O intervalo das datas não pode ser superior a 7 dias.')
-    }
-  }, [diffInDays])
+  console.log(chartData)
 
   return (
     <Card className="col-span-full lg:col-span-6">
@@ -81,35 +76,49 @@ export function RevenueChat() {
       </CardHeader>
 
       <CardContent>
-        {diffInDays ? (
-          <div className="flex h-[180px] flex-col items-center justify-center text-sm text-gray-400">
-            <AlertCircle className="mb-3 text-orange-400" />
-            <p>O intervalo das datas não pode ser superior a 7 dias.</p>
-            <span>escolha a data novamente!</span>
+        {chartData?.length === 0 ? (
+          <div className="mt-10 flex flex-col items-center justify-center text-sm text-gray-400">
+            <BarChart className="mb-3 text-orange-400" />
+            <p>Não há receita para este período.</p>
           </div>
-        ) : chartData ? (
-          <ResponsiveContainer width="100%" height={240}>
-            <LineChart data={chartData} style={{ fontSize: 12 }}>
-              <XAxis dataKey="date" tickLine={false} axisLine={false} dy={16} />
-              <YAxis
-                stroke="#888"
-                axisLine={false}
-                tickLine={false}
-                width={80}
-                tickFormatter={(value: number) => formattedCurrency(value)}
-              />
-              <CartesianGrid vertical={false} className="stroke-muted" />
-
-              <Line
-                type="linear"
-                strokeWidth={2}
-                dataKey="receipt"
-                stroke={colors.orange[400]}
-              />
-            </LineChart>
-          </ResponsiveContainer>
         ) : (
-          <Skeleton className="h-[240px] w-full" />
+          <>
+            {diffInDays ? (
+              <div className="flex h-[180px] flex-col items-center justify-center text-sm text-gray-400">
+                <AlertCircle className="mb-3 text-orange-400" />
+                <p>O intervalo das datas não pode ser superior a 7 dias.</p>
+                <span>escolha a data novamente!</span>
+              </div>
+            ) : chartData ? (
+              <ResponsiveContainer width="100%" height={240}>
+                <LineChart data={chartData} style={{ fontSize: 12 }}>
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    dy={16}
+                  />
+                  <YAxis
+                    stroke="#888"
+                    axisLine={false}
+                    tickLine={false}
+                    width={80}
+                    tickFormatter={(value: number) => formattedCurrency(value)}
+                  />
+                  <CartesianGrid vertical={false} className="stroke-muted" />
+
+                  <Line
+                    type="linear"
+                    strokeWidth={2}
+                    dataKey="receipt"
+                    stroke={colors.orange[400]}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <Skeleton className="h-[240px] w-full" />
+            )}
+          </>
         )}
       </CardContent>
     </Card>

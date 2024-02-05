@@ -5,7 +5,6 @@ import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import type { InlineConfig } from 'vitest'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {

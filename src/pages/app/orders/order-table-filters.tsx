@@ -86,7 +86,6 @@ export function OrderTableFilters() {
 
   return (
     <form
-      role="form"
       onSubmit={handleSubmit(handleFilter)}
       className="flex flex-col flex-wrap gap-2 lg:flex-row lg:items-center"
     >
@@ -137,7 +136,6 @@ export function OrderTableFilters() {
 
       <div className="flex flex-col items-center gap-2 sm:flex-row">
         <Button
-          role="button"
           aria-label="Filtrar resultados"
           type="submit"
           variant="secondary"
@@ -149,7 +147,6 @@ export function OrderTableFilters() {
         </Button>
         <Button
           onClick={handleClearFilters}
-          role="button"
           aria-label="Remover filtros"
           type="button"
           variant="outline"

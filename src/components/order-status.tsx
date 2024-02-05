@@ -1,7 +1,7 @@
 import { StatusOrder } from '@/api/get-orders'
 import { cn } from '@/lib/utils'
 
-type OrderStatusProps = {
+export type OrderStatusProps = {
   status: StatusOrder
 }
 
