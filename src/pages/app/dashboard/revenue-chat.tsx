@@ -58,8 +58,6 @@ export function RevenueChat() {
     })
   }, [dailyRevenueInPeriod])
 
-  console.log(chartData)
-
   return (
     <Card className="col-span-full lg:col-span-6">
       <CardHeader className="flex-col justify-between pb-8 md:flex-row md:items-center">

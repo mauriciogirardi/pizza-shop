@@ -69,7 +69,6 @@ export function SignUp() {
           aria-label="Voltar para tela de login"
           className="absolute right-8 top-8"
           variant="ghost"
-          role="button"
         >
           <Link to={PATH_SIGN_IN} className="flex items-center gap-3">
             <ChevronLeft className="h-5 w-5 text-muted-foreground" />
@@ -130,7 +129,6 @@ export function SignUp() {
             <Button
               className="w-full"
               type="submit"
-              role="button"
               loading={isSubmitting}
               aria-label="Finalizar cadastro"
             >

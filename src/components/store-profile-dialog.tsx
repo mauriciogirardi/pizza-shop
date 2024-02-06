@@ -36,11 +36,7 @@ export function StoreProfileDialog() {
     staleTime: Infinity,
   })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<StoreProfileSchema>({
+  const { register, handleSubmit } = useForm<StoreProfileSchema>({
     resolver: zodResolver(storeProfileSchema),
     values: {
       name: managedRestaurant?.name ?? '',
@@ -101,22 +97,11 @@ export function StoreProfileDialog() {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button
-              role="button"
-              aria-label="Cancelar"
-              variant="ghost"
-              type="button"
-            >
+            <Button aria-label="Cancelar" variant="ghost" type="button">
               Cancelar
             </Button>
           </DialogClose>
-          <Button
-            role="button"
-            aria-label="Salver"
-            type="submit"
-            variant="success"
-            loading={isSubmitting}
-          >
+          <Button aria-label="Salver" type="submit" variant="success">
             Salvar
           </Button>
         </DialogFooter>

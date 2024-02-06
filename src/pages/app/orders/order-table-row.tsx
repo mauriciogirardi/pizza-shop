@@ -83,7 +83,6 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
     return (
       <T.TableCell key={label}>
         <Button
-          role="button"
           aria-label={label}
           size="xs"
           variant={'outline'}
@@ -183,7 +182,6 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
 
       <T.TableCell>
         <Button
-          role="button"
           aria-label="Cancelar"
           size="xs"
           variant="ghost"

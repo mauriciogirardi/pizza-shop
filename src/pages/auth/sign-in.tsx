@@ -56,7 +56,6 @@ export function SignIn() {
           variant="ghost"
           className="absolute right-8 top-8"
           aria-label="Cadastrar novo estabelecimento"
-          role="button"
         >
           <Link to="/sign-up">Novo estabelecimento</Link>
         </Button>

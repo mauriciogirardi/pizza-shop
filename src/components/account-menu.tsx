@@ -49,10 +49,9 @@ export function AccountMenu() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            role="button"
             aria-label="Abrir profile"
             variant="outline"
-            className="flex  select-none items-center gap-2"
+            className="flex select-none items-center gap-2"
           >
             {isLoadingManagedRestaurant ? (
               <Skeleton className="h-4 w-36" />
@@ -103,7 +102,6 @@ export function AccountMenu() {
             disabled={isSigningOut}
           >
             <button
-              role="button"
               onClick={() => signOutFn()}
               className="w-full"
               aria-label="Sair"
