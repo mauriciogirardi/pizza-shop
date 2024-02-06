@@ -90,7 +90,7 @@ export function StoreProfileDialog() {
             <Input className="col-span-3" id="name" {...register('name')} />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="description">Descrição</Label>
+            <Label htmlFor="description">Descrição:</Label>
             <Textarea
               className="col-span-3"
               id="description"

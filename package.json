@@ -44,6 +44,8 @@
     "localforage": "^1.10.0",
     "lucide-react": "^0.300.0",
     "match-sorter": "^6.3.1",
+    "node": "^21.6.1",
+    "playwright": "^1.41.2",
     "react": "^18.2.0",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18.2.0",
@@ -59,9 +61,11 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.41.2",
     "@rocketseat/eslint-config": "^2.1.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
@@ -75,6 +79,7 @@
     "husky": "^8.0.0",
     "jsdom": "^23.0.1",
     "lint-staged": "^15.2.0",
+    "msw": "^2.1.6",
     "postcss": "^8.4.32",
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.4.0",

@@ -3,7 +3,7 @@ import { api } from '@/lib/axios'
 
 import { StatusOrder } from './get-orders'
 
-type GetOrderDetailsParams = {
+export type GetOrderDetailsParams = {
   orderId: string
 }
 

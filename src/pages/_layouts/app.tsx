@@ -19,6 +19,8 @@ export function AppLayout() {
 
           if (status === 401 && code === 'UNAUTHORIZED') {
             navigate(PATH_SIGN_IN, { replace: true })
+          } else {
+            throw error
           }
         }
       },
